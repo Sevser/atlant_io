@@ -16,6 +16,9 @@
       :label="'Сброс'">
     </aButton>
   </div>
+  <div class="total-amount">
+    {{totalAmount}}
+  </div>
 </div>
 </template>
 
@@ -30,7 +33,11 @@ export default {
   },
   props: {},
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      transactions: 'blockchain/transactions',
+      transactionsClear: 'blockchain/transactionsClear',
+      totalAmount: 'blockchain/totalAmount',
+    }),
   },
   methods: {
     launchHandler() {
@@ -46,10 +53,7 @@ export default {
       this.addTransaction(transaction);
     },
     ...mapActions({
-      setBlockchainManager: 'blockchain/setBlockchainManager',
-      setBlockchainCallback: 'blockchain/setBlockchainCallback',
       subscribe: 'blockchain/subscribe',
-      connect: 'blockchain/connect',
       setMessageCallback: 'blockchain/setMessageCallback',
       addTransaction: 'blockchain/addTransaction',
       unSubscribe: 'blockchain/unSubscribe',
@@ -73,6 +77,10 @@ export default {
     & .handler-container {
       display: flex;
       justify-content: space-between;
+      padding: 1rem 40%;
+    }
+    & .total-amount {
+      text-align: center;
       padding: 1rem 40%;
     }
   }

@@ -52,9 +52,7 @@ export default class blockchainManager {
     console.log('onClose', $event);
   }
   onMessage($event) {
-    console.log('onMessage', $event);
-    console.log(this.onMessageCallback)
-    console.log(typeof this.onMessageCallback)
+    console.log('onMessage', $event)
     if (typeof this.onMessageCallback === 'function') {
 
       this.onMessageCallback(JSON.parse($event.data));
