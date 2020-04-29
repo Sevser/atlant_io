@@ -4,12 +4,22 @@ import Router from 'vue-router';
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [{
     path: '/',
-    name: 'Home',
-    component: () => import('@/pages/Home'),
+    name: 'home',
+    component: () => import('@/pages/home'),
+  }, {
+    path: '/blockchain',
+    name: 'blockchain',
+    component: () => import('@/pages/blockchain'),
+  }, {
+    path: '/interactiveWorkSpace',
+    name: 'interactiveWorkSpace',
+    component: () => import('@/pages/interactiveWorkSpace'),
   }, {
     path: '/*',
-    redirect: '/',
+    name: '404',
+    component: () => import('@/pages/notFound'),
   }],
 });

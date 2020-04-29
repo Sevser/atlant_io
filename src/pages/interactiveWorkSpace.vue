@@ -1,10 +1,11 @@
 <template>
-	<div>
-		interactiveWorkSpace
-	</div>
+<div class="interactive-work-space-container">
+  interactiveWorkSpace
+</div>
 </template>
 
 <script>
+import store from '@/store/interactiveWorkSpace';
 
 export default {
   name: 'interactiveWorkSpace',
@@ -15,9 +16,23 @@ export default {
   data() {
     return {};
   },
+  created() {
+    if (!this.$store.state.interactiveWorkSpace) {
+      this.$store.registerModule('interactiveWorkSpace', store);
+    }
+  },
+  destroyed() {
+    if (!this.$store.state.interactiveWorkSpace) {
+      this.$store.unregisterModule('interactiveWorkSpace');
+    }
+  },
 };
 </script>
 
-<style>
+<style scoped lang="scss">
+  @import "../styles/base";
 
+  .interactive-work-space-container {
+    @extend %fullHeightWidth;
+  }
 </style>
