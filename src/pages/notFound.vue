@@ -1,7 +1,7 @@
 <template>
-	<div class="page-not-found-container">
-		Page not found
-	</div>
+<div class="page-not-found-container">
+  Page not found
+</div>
 </template>
 
 <script>

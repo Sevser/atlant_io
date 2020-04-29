@@ -21,11 +21,6 @@ export default {
       this.$store.registerModule('interactiveWorkSpace', store);
     }
   },
-  destroyed() {
-    if (!this.$store.state.interactiveWorkSpace) {
-      this.$store.unregisterModule('interactiveWorkSpace');
-    }
-  },
 };
 </script>
 

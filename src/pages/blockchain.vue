@@ -1,18 +1,23 @@
 <template>
-<div class="blockchain-container">
-  blockchain
+<div>
+  <viewer></viewer>
 </div>
 </template>
 
 <script>
 import store from '@/store/blockchain';
+import viewer from '../components/blockchain/viewer';
 
 export default {
   name: 'blockchain',
-  components: {},
+  components: {
+    viewer,
+  },
   props: {},
-  computed: {},
-  methods: {},
+  computed: {
+  },
+  methods: {
+  },
   data() {
     return {};
   },
@@ -22,7 +27,7 @@ export default {
     }
   },
   destroyed() {
-    if (!this.$store.state.blockchain) {
+    if (this.$store.state.blockchain) {
       this.$store.unregisterModule('blockchain');
     }
   },
@@ -34,6 +39,11 @@ export default {
 
   .blockchain-container {
     @extend %fullHeightWidth;
+    @extend %flexColumn;
+    & .handler-container {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 40%;
+    }
   }
-
 </style>
