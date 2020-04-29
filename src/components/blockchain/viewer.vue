@@ -19,6 +19,36 @@
   <div class="total-amount">
     {{totalAmount}}
   </div>
+  <div class="table-transactions">
+    <div
+      class="header">
+      <div>from</div>
+      <div>to</div>
+      <div>amount</div>
+    </div>
+    <div
+      class="row"
+      :key="index"
+      v-for="(item, index) in transactionsClear">
+      <div>
+        <div
+          :key="address"
+          v-for="address in item.from">
+          {{address}}
+        </div>
+      </div>
+      <div>
+        <div
+          :key="address"
+          v-for="address in item.to">
+          {{address}}
+        </div>
+      </div>
+      <div>
+        {{item.amount}}
+      </div>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -70,9 +100,10 @@ export default {
 
 <style lang="scss" scoped>
   @import "../../styles/base";
+  @import "../../styles/colors";
 
   .viewer-container {
-    @extend %fullHeightWidth;
+    position: relative;
     @extend %flexColumn;
     & .handler-container {
       display: flex;
@@ -82,6 +113,41 @@ export default {
     & .total-amount {
       text-align: center;
       padding: 1rem 40%;
+    }
+    & .table-transactions {
+      @extend %flexColumn;
+      width: 100%;
+      overflow: auto;
+      height: calc(100% - 5rem);
+      & .header {
+        position: sticky;
+        top: 0;
+        background: white;
+        border-top: 1px solid $common-separator;
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        & > div {
+          width: 33%;
+          @extend %flexColumn;
+          cursor: default;
+        }
+      }
+      & .row {
+        border-top: 1px solid $common-separator;
+        &:last-child {
+          border-bottom: 1px solid $common-separator;
+        }
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        & > div {
+          width: 33%;
+          @extend %flexColumn;
+          text-decoration: underline;
+          cursor: default;
+        }
+      }
     }
   }
 </style>

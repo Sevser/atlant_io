@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="blockchain-route-container">
   <viewer></viewer>
 </div>
 </template>
@@ -37,8 +37,9 @@ export default {
 <style scoped lang="scss">
   @import "../styles/base";
 
-  .blockchain-container {
-    @extend %fullHeightWidth;
+  .blockchain-route-container {
+    position: relative;
+    max-height: calc(100% - 5rem);
     @extend %flexColumn;
     & .handler-container {
       display: flex;

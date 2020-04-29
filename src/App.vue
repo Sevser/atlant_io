@@ -20,6 +20,7 @@ export default {
 
   html, body {
     @extend %fullHeightWidth;
+    overflow: hidden;
   }
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -29,6 +30,7 @@ export default {
     color: #2c3e50;
     position: relative;
     @extend %fullHeightWidth;
+    overflow: hidden;
     & .navigation-menu {
       display: flex;
       justify-content: center;
