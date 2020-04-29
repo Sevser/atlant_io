@@ -77,7 +77,7 @@ export default {
       this.unSubscribe();
     },
     clearHandler() {
-
+      this.clearTransactions();
     },
     addTransactionHandler(transaction) {
       this.addTransaction(transaction);
@@ -86,6 +86,7 @@ export default {
       subscribe: 'blockchain/subscribe',
       setMessageCallback: 'blockchain/setMessageCallback',
       addTransaction: 'blockchain/addTransaction',
+      clearTransactions: 'blockchain/clearTransactions',
       unSubscribe: 'blockchain/unSubscribe',
     }),
   },

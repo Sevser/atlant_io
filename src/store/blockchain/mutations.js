@@ -12,3 +12,9 @@ export const ADD_TRANSACTION = (state, transaction) => {
   });
   state.totalAmount += outValue.amount;
 };
+
+export const CLEAR_TRANSACTIONS = (state) => {
+  state.transactions = [];
+  state.transactionsClear = [];
+  state.totalAmount = 0;
+};

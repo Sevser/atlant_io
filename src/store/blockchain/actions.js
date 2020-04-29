@@ -21,6 +21,10 @@ export const connect = ({ commit }, callback) => {
   commit('SET_MANAGER_MESSAGE_CALLBACK', callback);
 };
 
+export const clearTransactions = ({ commit }, callback) => {
+  commit('CLEAR_TRANSACTIONS', callback);
+};
+
 export const addTransaction = ({ commit }, transaction) => {
   commit('ADD_TRANSACTION', transaction);
 };
