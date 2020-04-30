@@ -1,4 +1,6 @@
-export default class blockchainManager {
+import config from '../config/urls';
+
+class BlockchainManager {
   constructor(url = null) {
     this.status = 'closed';
     this.websocket = null;
@@ -54,7 +56,6 @@ export default class blockchainManager {
   onMessage($event) {
     console.log('onMessage', $event)
     if (typeof this.onMessageCallback === 'function') {
-
       this.onMessageCallback(JSON.parse($event.data));
     }
   }
@@ -62,3 +63,8 @@ export default class blockchainManager {
     console.log('onError', $event);
   }
 }
+
+const bcManager = new BlockchainManager(config.bcServer);
+bcManager.connect();
+
+export default bcManager;

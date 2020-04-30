@@ -25,22 +25,22 @@ export default {
     title: String,
   },
   watch: {
-    id: function watcher(newValue, oldValue) {
+    id: function watcher() {
       this.reCalcPosition();
     },
   },
   computed: {
     style() {
       return {
-        height: this.height,
-        width: this.width,
+        height: `${this.height}px`,
+        width: `${this.width}px`,
       };
     },
   },
   methods: {
     reCalcPosition() {
-      this.$el.style.top = this.top;
-      this.$el.style.left = this.left;
+      this.$el.style.top = `${this.top}px`;
+      this.$el.style.left = `${this.left}px`;
     },
   },
   data() {

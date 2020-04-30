@@ -1,8 +1,4 @@
-import BlockchainManager from '../../utills/blockchainManager';
-import config from '../../config/urls';
-
-const bcManager = new BlockchainManager(config.bcServer);
-bcManager.connect();
+import bcManager from '../../utills/blockchainManager';
 
 export const subscribe = () => {
   bcManager.subscribe();

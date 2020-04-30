@@ -21,6 +21,7 @@
 import { mapActions } from 'vuex';
 import Draggable from 'gsap/Draggable';
 import draggableBlock from './draggableBlock';
+import LSManager from '../../utills/localStorageManager';
 
 export default {
   name: 'workspace',
@@ -45,9 +46,14 @@ export default {
       return Math.round(endValue / this.gridHeight) * this.gridHeight;
     },
     dragEndHandler($event, index) {
-      console.log($event, index)
-      console.log(this.draggableBlocks[index].endX)
-      console.log(this.draggableBlocks[index].endY)
+      console.log($event, index);
+      console.log(this.draggableBlocks[index].endX);
+      console.log(this.draggableBlocks[index].endY);
+      this.updateBlock({
+        ...this.blocks[index],
+        top: this.blocks[index].top + this.draggableBlocks[index].endY,
+        left: this.blocks[index].left + this.draggableBlocks[index].endX,
+      });
     },
     initDraggableBlocks(blocks = []) {
       this.draggableBlocks = blocks.map((block, index) => Draggable.create(`div[data-attr="draggableBlock-${index}"]`, {
@@ -77,6 +83,9 @@ export default {
   },
   mounted() {
     this.initDraggableBlocks(this.blocks);
+  },
+  beforeDestroy() {
+    LSManager.updateBlocks(this.blocks);
   },
 };
 </script>
