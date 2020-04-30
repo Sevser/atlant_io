@@ -32,14 +32,14 @@
       v-for="(item, index) in transactionsClear">
       <div>
         <div
-          :key="address"
+          :key="`from_${index}_${address}`"
           v-for="address in item.from">
           {{address}}
         </div>
       </div>
       <div>
         <div
-          :key="address"
+          :key="`to_${index}_${address}`"
           v-for="address in item.to">
           {{address}}
         </div>
