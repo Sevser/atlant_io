@@ -16,3 +16,6 @@ export const resetBlocks = ({ commit }) => {
 export const addNewDefaultBlock = ({ commit }) => {
   commit('ADD_NEW_DEFAULT_BLOCK');
 };
+export const returnErasedBlock = ({ commit }, params) => {
+  commit('RETURN_ERASED_BLOCK', params);
+};

@@ -5,10 +5,15 @@
       @click="resetBlocks"
       :label="'Сбросить настройки'"></aButton>
     <aButton
-      @click="addNewDefaultBlock"
-      :label="'Добавить новый блок'"></aButton>
+      :disabled="canReturnErasedBlock"
+      @click="returnErasedBlockHandler"
+      :label="'Вернуть удаленный блок'"></aButton>
+    <!--<aButton-->
+      <!--@click="addNewDefaultBlock"-->
+      <!--:label="'Добавить новый блок'"></aButton>-->
   </div>
   <workspace
+    ref="workspace"
     :blocks="blocks"></workspace>
 </div>
 </template>
@@ -29,12 +34,20 @@ export default {
   computed: {
     ...mapGetters({
       blocks: 'interactiveWorkSpace/blocks',
+      canReturnErasedBlock: 'interactiveWorkSpace/canReturnErasedBlock',
     }),
   },
   methods: {
+    returnErasedBlockHandler() {
+      this.returnErasedBlock({
+        left: (this.$refs.workspace.$el.getBoundingClientRect().width / 2) - 150,
+        top: (this.$refs.workspace.$el.getBoundingClientRect().height / 2) - 50,
+      });
+    },
     ...mapActions({
       initializeBlocks: 'interactiveWorkSpace/initializeBlocks',
       resetBlocks: 'interactiveWorkSpace/resetBlocks',
+      returnErasedBlock: 'interactiveWorkSpace/returnErasedBlock',
       addNewDefaultBlock: 'interactiveWorkSpace/addNewDefaultBlock',
     }),
   },

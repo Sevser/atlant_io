@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Draggable from 'gsap/Draggable';
 import draggableBlock from './draggableBlock';
 import LSManager from '../../utills/localStorageManager';
@@ -31,7 +31,11 @@ export default {
   props: {
     blocks: Array,
   },
-  computed: {},
+  computed: {
+    ...mapGetters({
+      erasedBlocks: 'interactiveWorkSpace/erasedBlocks',
+    }),
+  },
   watch: {
     blocks: function watcher(newValue) {
       this.draggableBlocks.forEach(item => item.kill());
@@ -82,7 +86,10 @@ export default {
     };
   },
   mounted() {
-    window.onbeforeunload = () => LSManager.updateBlocks(this.blocks);
+    window.onbeforeunload = () => {
+      LSManager.updateBlocks(this.blocks);
+      LSManager.updateErasedBlocks(this.erasedBlocks);
+    };
     this.initDraggableBlocks(this.blocks);
   },
   beforeDestroy() {
