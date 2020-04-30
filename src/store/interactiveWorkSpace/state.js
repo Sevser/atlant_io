@@ -15,4 +15,10 @@ export default {
     left: '500px',
     title: 'title_2',
   }],
+  blockTemplate: {
+    height: '100px',
+    width: '300px',
+    top: '10px',
+    left: '10px',
+  },
 };

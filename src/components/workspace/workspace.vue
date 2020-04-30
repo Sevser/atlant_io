@@ -10,7 +10,7 @@
       :left="block.left"
       :id="block.id"
       :key="index"
-      @delete="handleDelete(index)"
+      @delete="eraseBlock(block.id)"
       :data-attr="`draggableBlock-${index}`"
       v-for="(block, index) in blocks">
     </draggableBlock>
@@ -38,15 +38,16 @@ export default {
     },
   },
   methods: {
-    handleDelete(index) {
-      this.draggableBlocks[index].kill();
-      this.eraseBlock(index);
-    },
     watcherWidth(endValue) {
       return Math.round(endValue / this.gridWidth) * this.gridWidth;
     },
     watcherHeight(endValue) {
       return Math.round(endValue / this.gridHeight) * this.gridHeight;
+    },
+    dragEndHandler($event, index) {
+      console.log($event, index)
+      console.log(this.draggableBlocks[index].endX)
+      console.log(this.draggableBlocks[index].endY)
     },
     initDraggableBlocks(blocks = []) {
       this.draggableBlocks = blocks.map((block, index) => Draggable.create(`div[data-attr="draggableBlock-${index}"]`, {
@@ -55,14 +56,16 @@ export default {
         bounds: 'div.grid',
         autoScroll: true,
         liveSnap: true,
+        onDragEnd: $event => this.dragEndHandler($event, index),
         snap: {
-          x: this.watcherWidth.bind(this),
-          y: this.watcherHeight.bind(this),
+          x: this.watcherWidth,
+          y: this.watcherHeight,
         },
       })[0]);
     },
     ...mapActions({
       eraseBlock: 'interactiveWorkSpace/eraseBlock',
+      updateBlock: 'interactiveWorkSpace/updateBlock',
     }),
   },
   data() {

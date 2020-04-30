@@ -4,6 +4,9 @@
     <aButton
       @click="resetBlocks"
       :label="'Сбросить настройки'"></aButton>
+    <aButton
+      @click="addNewDefaultBlock"
+      :label="'Добавить новый блок'"></aButton>
   </div>
   <workspace
     :blocks="blocks"></workspace>
@@ -32,6 +35,7 @@ export default {
     ...mapActions({
       initializeBlocks: 'interactiveWorkSpace/initializeBlocks',
       resetBlocks: 'interactiveWorkSpace/resetBlocks',
+      addNewDefaultBlock: 'interactiveWorkSpace/addNewDefaultBlock',
     }),
   },
   data() {
@@ -58,6 +62,9 @@ export default {
       width: 100%;
       display: flex;
       justify-content: center;
+      & button {
+        margin-right: 1rem;
+      }
     }
   }
 </style>

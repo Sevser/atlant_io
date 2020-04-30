@@ -26,9 +26,7 @@ export default {
   },
   watch: {
     id: function watcher(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.reCalcPosition();
-      }
+      this.reCalcPosition();
     },
   },
   computed: {
