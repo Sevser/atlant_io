@@ -15,6 +15,7 @@ export default {
     left: 500,
     title: 'title_2',
   }],
+  highestBlockId: 0,
   blockTemplate: {
     height: 100,
     width: 300,
