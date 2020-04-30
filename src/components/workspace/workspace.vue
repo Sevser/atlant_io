@@ -82,6 +82,7 @@ export default {
     };
   },
   mounted() {
+    window.onbeforeunload = () => LSManager.updateBlocks(this.blocks);
     this.initDraggableBlocks(this.blocks);
   },
   beforeDestroy() {
