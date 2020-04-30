@@ -41,6 +41,7 @@ export default {
   .draggable-block-container {
     border: 2px solid $common-separator;
     background-color: white;
+    position: absolute;
     & .title {
       border-bottom: 2px solid $common-separator;
       padding: 0.5rem;
