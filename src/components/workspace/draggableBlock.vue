@@ -4,7 +4,9 @@
   :style="style">
   <div class="title">
     {{title}}
-    <div class="exit-button">-</div>
+    <div
+      @click="$emit('delete')"
+      class="exit-button">-</div>
   </div>
 </div>
 </template>
@@ -17,7 +19,17 @@ export default {
   props: {
     height: String,
     width: String,
+    left: String,
+    top: String,
+    id: [String, Number],
     title: String,
+  },
+  watch: {
+    id: function watcher(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.reCalcPosition();
+      }
+    },
   },
   computed: {
     style() {
@@ -27,9 +39,17 @@ export default {
       };
     },
   },
-  methods: {},
+  methods: {
+    reCalcPosition() {
+      this.$el.style.top = this.top;
+      this.$el.style.left = this.left;
+    },
+  },
   data() {
     return {};
+  },
+  mounted() {
+    this.reCalcPosition();
   },
 };
 </script>

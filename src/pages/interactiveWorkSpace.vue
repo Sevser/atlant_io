@@ -2,6 +2,7 @@
 <div class="interactive-work-space-container">
   <div class="button-container">
     <aButton
+      @click="resetBlocks"
       :label="'Сбросить настройки'"></aButton>
   </div>
   <workspace
@@ -10,6 +11,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import store from '@/store/interactiveWorkSpace';
 import workspace from '../components/workspace/workspace';
 import aButton from '../components/base/a-button';
@@ -21,23 +23,19 @@ export default {
     aButton,
   },
   props: {},
-  computed: {},
-  methods: {},
+  computed: {
+    ...mapGetters({
+      blocks: 'interactiveWorkSpace/blocks',
+    }),
+  },
+  methods: {
+    ...mapActions({
+      initializeBlocks: 'interactiveWorkSpace/initializeBlocks',
+      resetBlocks: 'interactiveWorkSpace/resetBlocks',
+    }),
+  },
   data() {
     return {
-      blocks: [{
-        height: '100px',
-        width: '300px',
-        x: '40px',
-        y: '40px',
-        title: 'title_1',
-      }, {
-        height: '100px',
-        width: '300px',
-        x: '500px',
-        y: '500px',
-        title: 'title_2',
-      }],
     };
   },
   created() {
@@ -46,6 +44,7 @@ export default {
     }
   },
   mounted() {
+    this.initializeBlocks();
   },
 };
 </script>
