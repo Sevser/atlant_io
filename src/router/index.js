@@ -10,6 +10,10 @@ export default new Router({
     name: 'home',
     component: () => import('@/pages/home'),
   }, {
+    path: '/home',
+    name: 'home',
+    component: () => import('@/pages/home'),
+  }, {
     path: '/blockchain',
     name: 'blockchain',
     component: () => import('@/pages/blockchain'),
