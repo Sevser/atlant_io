@@ -7,6 +7,7 @@ export const INITIALIZE_BLOCKS = (state) => {
 
 export const RESET_BLOCKS = (state) => {
   state.blocks = JSON.parse(JSON.stringify(state.defaultBlocks));
+  state.erasedBlocksIds = [];
 };
 
 export const ERASE_BLOCKS = (state, eraseId) => {

@@ -39,9 +39,21 @@ class LocalStorageManager {
   }
   updateBlocks(blocks) {
     localStorage.setItem('userBlocks', JSON.stringify(blocks));
+    this.hasHavedBlocks = true;
   }
   updateErasedBlocks(blocks) {
     localStorage.setItem('erasedBlocks', JSON.stringify(blocks));
+    this.hasErasedBlocks = true;
+  }
+  deleteAll() {
+    if (this.hasErasedBlocks) {
+      localStorage.removeItem('erasedBlocks');
+      this.hasErasedBlocks = false;
+    }
+    if (this.hasHavedBlocks) {
+      localStorage.removeItem('userBlocks');
+      this.hasHavedBlocks = false;
+    }
   }
 }
 const manager = new LocalStorageManager();

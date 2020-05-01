@@ -4,6 +4,7 @@
     class="grid">
     <draggableBlock
       :block="block"
+      :id="`${block.id}${index}`"
       :key="index"
       @delete="eraseBlock(block.id)"
       @update="updateBlock"
@@ -34,8 +35,7 @@ export default {
   },
   watch: {
     blocks: function watcher(newValue) {
-      this.draggableBlocks.forEach(item => item.kill());
-      this.$nextTick(() => this.initDraggableBlocks(newValue));
+      this.$nextTick(() => this.updateDraggableBlocks(newValue));
     },
   },
   methods: {
@@ -54,18 +54,23 @@ export default {
       });
       this.$nextTick(() => this.draggableBlocks[index].update());
     },
-    initDraggableBlocks(blocks = []) {
-      this.draggableBlocks = blocks.map((block, index) => Draggable.create(`div[data-attr="draggableBlock-${index}"]`, {
-        type: 'x,y',
-        bounds: 'div.grid',
-        autoScroll: true,
-        liveSnap: true,
-        onDragEnd: $event => this.dragEndHandler($event, index),
-        snap: {
-          x: this.watcherWidth,
-          y: this.watcherHeight,
-        },
-      })[0]);
+    updateDraggableBlocks(blocks = []) {
+      if (this.draggableBlocks.length !== this.blocks.length) {
+        this.draggableBlocks.forEach(item => item.kill());
+        this.draggableBlocks = blocks.map((block, index) => Draggable.create(`div[data-attr="draggableBlock-${index}"]`, {
+          type: 'x,y',
+          bounds: 'div.grid',
+          autoScroll: true,
+          liveSnap: true,
+          onDragEnd: $event => this.dragEndHandler($event, index),
+          snap: {
+            x: this.watcherWidth,
+            y: this.watcherHeight,
+          },
+        })[0]);
+      } else {
+        this.draggableBlocks.forEach(item => item.update());
+      }
     },
     ...mapActions({
       eraseBlock: 'interactiveWorkSpace/eraseBlock',
@@ -84,7 +89,7 @@ export default {
       LSManager.updateBlocks(this.blocks);
       LSManager.updateErasedBlocks(this.erasedBlocks);
     };
-    this.initDraggableBlocks(this.blocks);
+    this.updateDraggableBlocks(this.blocks);
   },
   beforeDestroy() {
     LSManager.updateBlocks(this.blocks);

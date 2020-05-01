@@ -23,13 +23,16 @@ export default {
   components: {},
   props: {
     block: Object,
+    id: [Number, String],
   },
   watch: {
-    block: function watcher(newValue, oldValue) {
-      if (newValue.id !== oldValue.id) {
+    block: function watcher() {
+      this.reCalcPosition();
+    },
+    id: function watcher(newValue, oldValue) {
+      if (newValue !== oldValue) {
         this.setInitialPosition();
       }
-      this.reCalcPosition();
     },
   },
   computed: {
@@ -43,9 +46,11 @@ export default {
   methods: {
     setInitialPosition() {
       this.$el.style.top = `${this.block.top}px`;
+      this.$el.style.transform = 'unset';
       this.$el.style.left = `${this.block.left}px`;
       this.$refs.resize.style.top = `${this.block.height - 30}px`;
       this.$refs.resize.style.left = `${this.block.width - 30}px`;
+      this.$refs.resize.style.transform = 'unset';
     },
     reCalcPosition() {
       this.changedHeight = this.block.height;

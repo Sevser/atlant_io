@@ -2,8 +2,8 @@
 <div class="interactive-work-space-container">
   <div class="button-container">
     <aButton
-      @click="resetBlocks"
-      :label="'Сбросить настройки'"></aButton>
+      @click="resetBlocksHandler"
+      :label="'Сбросить все'"></aButton>
     <aButton
       :disabled="canReturnErasedBlock"
       @click="returnErasedBlockHandler"
@@ -23,6 +23,7 @@ import { mapGetters, mapActions } from 'vuex';
 import store from '@/store/interactiveWorkSpace';
 import workspace from '../components/workspace/workspace';
 import aButton from '../components/base/a-button';
+import LSManager from '../utills/localStorageManager';
 
 export default {
   name: 'interactiveWorkSpace',
@@ -38,6 +39,10 @@ export default {
     }),
   },
   methods: {
+    resetBlocksHandler() {
+      LSManager.deleteAll();
+      this.resetBlocks();
+    },
     returnErasedBlockHandler() {
       this.returnErasedBlock({
         left: (this.$refs.workspace.$el.getBoundingClientRect().width / 2) - 150,
