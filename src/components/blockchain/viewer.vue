@@ -17,14 +17,14 @@
     </aButton>
   </div>
   <div class="total-amount">
-    {{totalAmount}}
+    {{formatterBitcons(totalAmount)}} BTC
   </div>
   <div class="table-transactions">
     <div
       class="header">
-      <div>from</div>
-      <div>to</div>
-      <div>amount</div>
+      <div>From</div>
+      <div>To</div>
+      <div>Sum</div>
     </div>
     <div
       class="row"
@@ -45,7 +45,7 @@
         </div>
       </div>
       <div>
-        {{item.amount}}
+        {{formatterBitcons(item.amount)}} BTC
       </div>
     </div>
   </div>
@@ -55,8 +55,10 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import aButton from '../base/a-button';
+import formatters from '../../mixins/formatters';
 
 export default {
+  mixins: [formatters],
   name: 'viewer',
   components: {
     aButton,

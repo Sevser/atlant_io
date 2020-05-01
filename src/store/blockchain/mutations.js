@@ -1,4 +1,3 @@
-
 export const ADD_TRANSACTION = (state, transaction) => {
   state.transactions.push(transaction);
   const outValue = transaction.x.out.reduce((acc, { addr, value }) => {
