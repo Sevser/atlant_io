@@ -3,51 +3,90 @@
   class="draggable-block-container"
   :style="style">
   <div class="title">
-    {{title}}
+    {{block.title}}
     <div
       @click="$emit('delete')"
       class="exit-button">-</div>
+  </div>
+  <div
+    ref="resize"
+    class="resize-handle">
   </div>
 </div>
 </template>
 
 <script>
+import Draggable from 'gsap/Draggable';
 
 export default {
   name: 'draggableBlock',
   components: {},
   props: {
-    height: [String, Number],
-    width: [String, Number],
-    left: [String, Number],
-    top: [String, Number],
-    id: [String, Number],
-    title: String,
+    block: Object,
   },
   watch: {
-    id: function watcher() {
+    block: function watcher(newValue, oldValue) {
+      if (newValue.id !== oldValue.id) {
+        this.setInitialPosition();
+      }
       this.reCalcPosition();
     },
   },
   computed: {
     style() {
       return {
-        height: `${this.height}px`,
-        width: `${this.width}px`,
+        height: `${this.sizeChanged ? this.changedHeight : this.block.height}px`,
+        width: `${this.sizeChanged ? this.changedWidth : this.block.width}px`,
       };
     },
   },
   methods: {
+    setInitialPosition() {
+      this.$el.style.top = `${this.block.top}px`;
+      this.$el.style.left = `${this.block.left}px`;
+      this.$refs.resize.style.top = `${this.block.height - 30}px`;
+      this.$refs.resize.style.left = `${this.block.width - 30}px`;
+    },
     reCalcPosition() {
-      this.$el.style.top = `${this.top}px`;
-      this.$el.style.left = `${this.left}px`;
+      this.changedHeight = this.block.height;
+      this.changedWidth = this.block.width;
+      this.sizeChanged = false;
+    },
+    dragHandler() {
+      this.sizeChanged = true;
+      this.changedHeight = this.changedHeight + this.draggable.deltaY;
+      this.changedWidth = this.changedWidth + this.draggable.deltaX;
+    },
+    dragEndHandler() {
+      this.$emit('update', {
+        ...this.block,
+        height: this.changedHeight,
+        width: this.changedWidth,
+      });
     },
   },
   data() {
-    return {};
+    return {
+      sizeChanged: false,
+      changedHeight: false,
+      changedWidth: false,
+      draggable: null,
+    };
   },
   mounted() {
     this.reCalcPosition();
+    this.setInitialPosition();
+    this.draggable = Draggable.create(this.$refs.resize, {
+      type: 'x,y',
+      liveSnap: true,
+      // x: this.block.height,
+      // y: this.block.width,
+      onDragEnd: this.dragEndHandler,
+      onDrag: this.dragHandler,
+      onPress(e) {
+        e.stopPropagation(); // cancel drag
+      },
+    })[0];
   },
 };
 </script>
@@ -72,6 +111,15 @@ export default {
         top: 0.5rem;
         left: 2rem;
       }
+    }
+    & .resize-handle {
+      position: absolute;
+      border-right: 20px solid #bbbbbb;
+      border-top: 20px solid transparent;
+      height: 0;
+      width: 0;
+      cursor: nwse-resize;
+      user-select: none;
     }
   }
 </style>

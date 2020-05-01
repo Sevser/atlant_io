@@ -3,25 +3,21 @@
     ref="container"
     class="grid">
     <draggableBlock
-      :height="block.height"
-      :width="block.width"
-      :title="block.title"
-      :top="block.top"
-      :left="block.left"
-      :id="block.id"
+      :block="block"
       :key="index"
       @delete="eraseBlock(block.id)"
+      @update="updateBlock"
       :data-attr="`draggableBlock-${index}`"
       v-for="(block, index) in blocks">
     </draggableBlock>
   </div>
 </template>
-
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import Draggable from 'gsap/Draggable';
 import draggableBlock from './draggableBlock';
 import LSManager from '../../utills/localStorageManager';
+
 
 export default {
   name: 'workspace',
@@ -50,19 +46,17 @@ export default {
       return Math.round(endValue / this.gridHeight) * this.gridHeight;
     },
     dragEndHandler($event, index) {
-      console.log($event, index);
-      console.log(this.draggableBlocks[index].endX);
-      console.log(this.draggableBlocks[index].endY);
+      // debugger
       this.updateBlock({
         ...this.blocks[index],
-        top: this.blocks[index].top + this.draggableBlocks[index].endY,
-        left: this.blocks[index].left + this.draggableBlocks[index].endX,
+        top: this.blocks[index].top + this.draggableBlocks[index].endY - this.draggableBlocks[index].startY,
+        left: this.blocks[index].left + this.draggableBlocks[index].endX - this.draggableBlocks[index].startX,
       });
+      this.$nextTick(() => this.draggableBlocks[index].update());
     },
     initDraggableBlocks(blocks = []) {
       this.draggableBlocks = blocks.map((block, index) => Draggable.create(`div[data-attr="draggableBlock-${index}"]`, {
         type: 'x,y',
-        edgeResistance: 0.65,
         bounds: 'div.grid',
         autoScroll: true,
         liveSnap: true,
@@ -97,6 +91,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped lang="scss">
   @import "../../styles/base";
