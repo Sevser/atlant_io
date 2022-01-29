@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/atlant_io/css/chunk-1c2ad13e.2a6d403d.css"
   },
   {
-    "revision": "735a32bf4b1532114bec287ad31f3c07",
+    "revision": "c43bbef87dfd0b12874bc6ab0281d624",
     "url": "/atlant_io/index.html"
   },
   {
@@ -32,7 +32,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/atlant_io/js/chunk-vendors.6dd4d6c5.js"
   },
   {
-    "revision": "173a423f1037e79fbf6353f28c975301",
+    "revision": "5da18f8fbd251ed84dbebfea6c5175e5",
     "url": "/atlant_io/manifest.json"
   },
   {

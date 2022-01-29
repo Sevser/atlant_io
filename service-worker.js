@@ -14,10 +14,10 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/atlant_io/precache-manifest.6792b339a207d407f988e5b3c8722d80.js"
+  "/atlant_io/precache-manifest.640831a1a9d2e2191ea1edd28db7dbd2.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "i"});
+workbox.core.setCacheNameDetails({prefix: "blockchain_vue3_typescript_attempt"});
 
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
