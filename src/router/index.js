@@ -1,29 +1,33 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-
-Vue.use(Router);
-
-export default new Router({
-  mode: 'history',
-  routes: [{
-    path: '/',
-    name: 'home',
-    component: () => import('@/pages/home'),
-  }, {
-    path: '/home',
-    name: 'home',
-    component: () => import('@/pages/home'),
-  }, {
-    path: '/blockchain',
-    name: 'blockchain',
-    component: () => import('@/pages/blockchain'),
-  }, {
-    path: '/interactiveWorkSpace',
-    name: 'interactiveWorkSpace',
-    component: () => import('@/pages/interactiveWorkSpace'),
-  }, {
-    path: '/*',
-    name: '404',
-    component: () => import('@/pages/notFound'),
-  }],
+import { createRouter, createWebHistory } from 'vue-router';
+import Home from '../views/Home.vue';
+const routes = [
+    {
+        path: '/',
+        name: 'Home',
+        component: Home,
+    },
+    {
+        path: '/about',
+        name: 'About',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    },
+    {
+        path: '/blockchain',
+        name: 'Blockchain',
+        component: () => import('../views/blockchain.vue'),
+    },
+    {
+        path: '/:route*',
+        name: 'notFound',
+        component: () => import('../views/notFound.vue'),
+    },
+];
+const router = createRouter({
+    history: createWebHistory(process.env.BASE_URL),
+    routes,
 });
+export default router;
+//# sourceMappingURL=index.js.map

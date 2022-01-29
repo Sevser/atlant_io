@@ -1,43 +1,40 @@
 <template>
-  <div id="app">
-    <div class="navigation-menu">
-      <router-link to="home">Домашняя</router-link>
-      <router-link to="interactiveWorkSpace">Рабочий стол</router-link>
-      <router-link to="blockchain">Websocket blockchain</router-link>
-    </div>
-    <router-view/>
+  <div id="nav">
+    <router-link to="/">Home</router-link> |
+    <router-link to="/blockchain">blockchain</router-link>
   </div>
+  <router-view/>
 </template>
 
-<script>
-export default {
-  name: 'App',
-};
-</script>
-
 <style lang="scss">
-  @import "./styles/base";
+@import "/styles/base";
 
-  html, body {
-    @extend %fullHeightWidth;
-    overflow: hidden;
-  }
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
+html, body, #app {
+  @extend %fullHeightWidth;
+  padding: 0;
+  margin: 0;
+}
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
     color: #2c3e50;
-    position: relative;
-    @extend %fullHeightWidth;
-    overflow: hidden;
-    & .navigation-menu {
-      display: flex;
-      justify-content: center;
-      padding: 1rem;
-      & a {
-        margin-right: 1rem;
-      }
+
+    &.router-link-exact-active {
+      color: #42b983;
     }
   }
+}
 </style>
